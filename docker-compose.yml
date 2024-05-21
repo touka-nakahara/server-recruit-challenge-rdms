@@ -1,0 +1,26 @@
+name: server-recruit-challenge-rdms
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      - "MYSQL_ROOT_HOST=%"
+      - "MYSQL_ROOT_PASSWORD=root"
+    volumes:
+      - server_recruit_challeng_mysql:/var/lib/mysql
+      - ./sql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3306"
+    networks:
+      - my-network
+    deploy:
+      # リソース制限
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1g
+
+networks:
+  my-network:
+
+volumes:
+  server_recruit_challeng_mysql:
